@@ -35,4 +35,3 @@ print(f"Codes in master but missing from NAV history: {len(missing_in_nav)}")
 if missing_in_nav:
     print("Missing codes:", missing_in_nav)
     
-
