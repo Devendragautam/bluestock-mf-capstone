@@ -69,3 +69,12 @@ CREATE TABLE fact_sip_industry (
     active_sip_accounts_crore REAL,
     sip_aum_lakh_crore REAL
 );
+
+CREATE TABLE dim_date (
+    date_id TEXT PRIMARY KEY,
+    date DATE,
+    year INTEGER,
+    month INTEGER,
+    quarter INTEGER,
+    is_weekday BOOLEAN
+);

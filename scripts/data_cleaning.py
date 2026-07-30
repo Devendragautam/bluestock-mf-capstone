@@ -32,3 +32,19 @@ print("Funds with out-of-range expense ratio:", len(bad_expense))
 
 perf.to_csv("data/processed/clean_performance.csv", index=False)
 print("Cleaned performance rows:", len(perf))
+
+
+import shutil
+from pathlib import Path
+
+remaining_files = [
+    "01_fund_master.csv", "03_aum_by_fund_house.csv", "04_monthly_sip_inflows.csv",
+    "05_category_inflows.csv", "06_industry_folio_count.csv",
+    "09_portfolio_holdings.csv", "10_benchmark_indices.csv"
+]
+
+for fname in remaining_files:
+    src = Path("data/raw") / fname
+    dst = Path("data/processed") / f"clean_{fname}"
+    shutil.copy(src, dst)
+    print(f"Copied {fname} -> {dst.name}")

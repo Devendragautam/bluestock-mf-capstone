@@ -17,6 +17,17 @@ with engine.connect() as conn:
 
 print("Schema created.")
 
+# --- Build & load dim_date from the NAV date range ---
+all_dates = pd.date_range(start="2022-01-01", end="2026-05-31", freq="D")
+dim_date = pd.DataFrame({"date": all_dates})
+dim_date["date_id"] = dim_date["date"].dt.strftime("%Y%m%d")
+dim_date["year"] = dim_date["date"].dt.year
+dim_date["month"] = dim_date["date"].dt.month
+dim_date["quarter"] = dim_date["date"].dt.quarter
+dim_date["is_weekday"] = dim_date["date"].dt.dayofweek < 5
+dim_date.to_sql("dim_date", engine, if_exists="append", index=False)
+print("Loaded dim_date:", len(dim_date), "rows")
+
 # --- Load dim_fund ---
 fund_master = pd.read_csv("data/raw/01_fund_master.csv")
 fund_master = fund_master[[
