@@ -26,6 +26,15 @@ An end-to-end data engineering, ETL pipeline, and interactive dashboard project 
 | **Slides** | `reports/Bluestock_MF_Presentation.pptx` (12 slides) |
 | **Dashboard** | `dashboard/bluestock_mf_dashboard.pbix` (4 pages) |
 
+<p align="center">
+  <img src="reports/dashboard_screenshots/01_industry_overview.png" width="49%" />
+  <img src="reports/dashboard_screenshots/02_fund_performance.png" width="49%" />
+</p>
+<p align="center">
+  <img src="reports/dashboard_screenshots/03_investor_analytics.png" width="49%" />
+  <img src="reports/dashboard_screenshots/04_sip_market_trends.png" width="49%" />
+</p>
+
 ## Setup Instructions
 
 **Requirements:** Python 3.10+, Git, Power BI Desktop (Windows, for the dashboard).
@@ -70,6 +79,11 @@ Open in VS Code or Jupyter Lab, selecting the `venv` kernel, and run top to bott
 3. `notebooks/advanced_analytics.ipynb` — VaR/CVaR, rolling 90-day Sharpe, investor cohort analysis, SIP continuity analysis, and sector concentration (HHI).
 
 Each notebook writes its outputs (charts to `reports/charts/`, tables to `data/processed/`) so later steps and the dashboard can consume them.
+
+<p align="center">
+  <img src="reports/charts/02_aum_growth_by_house.png" width="49%" />
+  <img src="reports/charts/03_sip_inflow_trend.png" width="49%" />
+</p>
 
 ## Opening the Dashboard
 
@@ -146,6 +160,23 @@ Ten datasets were provided as the primary input (see `data_dictionary.md` for fu
 | Interactive dashboard | `dashboard/bluestock_mf_dashboard.pbix` |
 | Final report | `reports/Final_Report.pdf` |
 | Presentation | `reports/Bluestock_MF_Presentation.pptx` |
+
+## Bonus Challenge — Monte Carlo NAV Projection (B3)
+
+`scripts/monte_carlo_simulation.py` projects 5-year NAV growth for the top 5 scorecard funds using a Geometric Brownian Motion Monte Carlo simulation (2,000 paths per fund), calibrated to each fund's own historical daily return mean/volatility. Outputs a median-path-plus-80%-confidence-band chart and a summary CSV.
+
+```powershell
+python scripts/monte_carlo_simulation.py
+```
+
+- Chart: `reports/charts/18_monte_carlo_projection.png`
+- Summary: `data/processed/monte_carlo_summary.csv`
+
+<p align="center">
+  <img src="reports/charts/18_monte_carlo_projection.png" width="95%" />
+</p>
+
+**Caveat:** this assumes daily returns are i.i.d. Normal, estimated from ~4.5 years of history — a simplification, not a forecast. Real markets exhibit volatility clustering and fat tails that this simple model doesn't capture.
 
 ## Known Limitations
 
